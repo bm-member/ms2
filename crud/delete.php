@@ -1,6 +1,6 @@
 <?php 
 
-require 'db.php';
+require '../db.php';
 
 $id = 3;
 $sql = "DELETE FROM users WHERE id='$id'";

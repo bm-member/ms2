@@ -1,6 +1,6 @@
 <?php 
 
-require 'db.php';
+require '../db.php';
 
 $name = 'bobo';
 $sql = "UPDATE users SET name='$name' WHERE id=2";
