@@ -2,18 +2,31 @@
 
 session_start();
 
+require 'db.php';
+
 if (isset($_POST['login'])) {
     $name = $_POST['username'];
     $password = $_POST['password'];
 
-    if ($name == 'mgmg' && $password == '123') {
+    $sql = "SELECT * FROM users WHERE name='$name' AND pass='$password'";
+    $res = mysqli_query($conn, $sql);
+    $user = mysqli_fetch_assoc($res);
+
+    if($user) {
+        $_SESSION['auth'] = true;
+        header('location: home.php');
+    } else {
+        $_SESSION['auth'] = false;
+    }
+
+    /* if ($name == 'mgmg' && $password == '123') {
 
         $_SESSION['auth'] = true;
         header('location: home.php');
     } else {
 
         $_SESSION['auth'] = false;
-    }
+    } */
 }
 
 ?>
@@ -38,13 +51,13 @@ if (isset($_POST['login'])) {
                 <form action="login.php" method="post">
 
                     <div class="form-group">
-                        <label>Name</label><br>
-                        <input type="text" name="username" class="form-control"><br><br>
+                        <label>Name</label>
+                        <input type="text" name="username" class="form-control">
                     </div>
 
                     <div class="form-group">
-                        <label>Password</label><br>
-                        <input type="password" name="password" class="form-control"><br><br>
+                        <label>Password</label>
+                        <input type="password" name="password" class="form-control">
                     </div>
 
                     <button type="submit" name="login" class="btn btn-primary">Login</button>
